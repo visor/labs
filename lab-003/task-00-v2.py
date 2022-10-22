@@ -34,7 +34,8 @@ slice0 = getSlice(image, sliceSize, 0)
 slice1 = getSlice(image, sliceSize, 1)
 slice2 = getSlice(image, sliceSize, 2)
 
-slice1 = numpy.roll(slice1, -2, 0)
+slice0 = numpy.roll(slice0, -2, 0)
+# slice1 = numpy.roll(slice1, -2, 0)
 slice2 = numpy.roll(slice2, 12, 0)
 
 grouped = numpy.dstack((slice0, slice1, slice2))
