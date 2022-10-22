@@ -4,7 +4,7 @@ import sys
 def readImage(fileName):
 	result = cv2.imread(fileName)
 	if (result is None):
-		sys.exit("Файл изображения не найден")
+		sys.exit("File not found")
 
 	return result
 

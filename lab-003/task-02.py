@@ -4,7 +4,7 @@ import sys
 def readImage(fileName):
 	result = cv2.imread(fileName)
 	if (result is None):
-		sys.exit("Файл изображения не найден")
+		sys.exit("File not found")
 
 	return result
 
@@ -15,7 +15,7 @@ def showImage(title, image):
 	cv2.destroyAllWindows()
 
 image = readImage("RGBMixed_Colors.jpg")
-showImage("Исходное", image)
+showImage("Source", image)
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-showImage("Полутоновое", gray)
+showImage("Grayscale", gray)

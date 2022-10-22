@@ -4,7 +4,7 @@ import sys
 def readImage(fileName):
 	result = cv2.imread(fileName)
 	if (result is None):
-		sys.exit("Файл изображения не найден")
+		sys.exit("File not found")
 
 	return result
 
@@ -15,11 +15,11 @@ def showImage(title, image):
 	cv2.destroyAllWindows()
 
 image = readImage("RGBMixed_Colors.jpg")
-showImage("Исходное", image)
+showImage("Source", image)
 
 hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 [h, s, v] = cv2.split(hsv)
 showImage("HSV", hsv)
-showImage("Канал H", h)
-showImage("Канал S", s)
-showImage("Канал V", v)
+showImage("Channel H", h)
+showImage("Channel S", s)
+showImage("Channel V", v)
