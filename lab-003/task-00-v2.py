@@ -24,7 +24,7 @@ def showProperties(image):
 	print("   Height: " + str(image.shape[0]))
 	print("   Width: " + str(image.shape[1]))
 
-image = readImage("image.jpg")
+image = readImage("RGB.jpg")
 showProperties(image)
 
 sliceSize = int(image.shape[0] / 3)
