@@ -20,7 +20,7 @@ def getSlice(image, size, index):
 
 def showProperties(image):
 	print("Image propertoes:")
-	print("  Size: " + str(image.shape))
+	print("  Shape: " + str(image.shape))
 	print("   Height: " + str(image.shape[0]))
 	print("   Width: " + str(image.shape[1]))
 
