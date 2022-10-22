@@ -4,7 +4,7 @@ import sys
 def readImage(fileName):
 	result = cv2.imread(fileName)
 	if (result is None):
-		sys.exit("Файл изображения не найден")
+		sys.exit("File not found")
 
 	return result
 
@@ -16,6 +16,7 @@ def showImage(title, image):
 
 image = readImage("RGBLabels.jpg")
 [b, g, r] = cv2.split(image)
+
 showImage("R", r)
 showImage("G", g)
 showImage("B", b)
