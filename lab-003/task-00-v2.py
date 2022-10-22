@@ -2,8 +2,6 @@ import cv2
 import numpy
 import sys
 
-# Я прислал новый код
-
 def readImage(fileName):
 	result = cv2.imread(fileName)
 	if (result is None):
