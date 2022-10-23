@@ -23,31 +23,32 @@ class BinaryDataParser
     public function parse(): string
     {
         $this->buffer = '';
+        $this->cursor = $this->tree->getWeight();
 
         while ($this->cursor < $this->length) {
-            $this->parseBite($this->tree);
+            $this->parseBit($this->tree);
             ++$this->cursor;
         }
 
         return $this->buffer;
     }
 
-    private function parseBite(NodeInterface $node, ?string $code = null): void
+    private function parseBit(NodeInterface $node, ?string $code = null): void
     {
         if ($node->getCode() === $code) {
             if ($node->isLeaf()) {
                 $this->buffer .= $node->getLetter();
             } else {
-                $this->parseNextBite($node, $code);
+                $this->parseNextBit($node, $code);
             }
         } else {
-            $this->parseNextBite($node, $code);
+            $this->parseNextBit($node, $code);
         }
 
 //        throw new \Exception('Unknown code: ' . $code);
     }
 
-    private function parseNextBite(NodeInterface $node, ?string $code): void
+    private function parseNextBit(NodeInterface $node, ?string $code): void
     {
         if (false === $node instanceof RootNode) {
             ++$this->cursor;
@@ -57,9 +58,9 @@ class BinaryDataParser
         }
         $newCode = $code . $this->binaryData[$this->cursor];
         if ($node->getLeft()->getCode() === $newCode) {
-            $this->parseBite($node->getLeft(), $newCode);
+            $this->parseBit($node->getLeft(), $newCode);
         } elseif ($node->getRight()->getCode() === $newCode) {
-            $this->parseBite($node->getRight(), $newCode);
+            $this->parseBit($node->getRight(), $newCode);
         }
     }
 }

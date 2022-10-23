@@ -32,15 +32,29 @@ class Stats
     {
         if (null == $this->split) {
             $this->sortByCount();
-            $half = round($this->total / 2);
+            $half = floor($this->total / 2);
 
             $first  = new Stats();
             $second = new Stats();
 
             $letters = array_keys($this->letters);
-            while ($first->getTotal() < $half && count($letters) > 0) {
+            while ($first->getTotal() <= $half) {
                 $letter = array_shift($letters);
+                if (1 == count($letters)) {
+                    $first->copyLetter($letter, $this->letters[$letter]);
+                    break;
+                }
+
+                if ($first->getTotal() > 0 && $this->letters[$letter] + $first->getTotal() > $half && count($letters) != 0) {
+                    array_unshift($letters, $letter);
+                    break;
+                }
+
                 $first->copyLetter($letter, $this->letters[$letter]);
+
+                if (0 == count($letters)) {
+                    break;
+                }
             }
 
             foreach ($letters as $letter) {

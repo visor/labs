@@ -23,22 +23,23 @@ class ShFaDecoder
         $tree = $this->readTree($fin);
 
         $binaryData = '';
-        while (!feof($fin)) {
-            $char = fgetc($fin);
-            if (!$char) {
+        while (false === feof($fin)) {
+            $line = fgets($fin);
+            if (false === $line) {
                 continue;
             }
 
-            $byte= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
-            $binaryData .= $byte;
+            $chars = str_split($line);
+            foreach ($chars as $char) {
+                $byte= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+                $binaryData .= $byte;
+            }
         }
 
         fclose($fin);
 
-        $parser = new BinaryDataParser($tree, $binaryData);
-
         $fout = fopen($targetFileName, 'w');
-        fwrite($fout, $parser->parse());
+        fwrite($fout, (new BinaryDataParser($tree, $binaryData))->parse());
         fclose($fout);
     }
 
@@ -48,13 +49,5 @@ class ShFaDecoder
         $data = json_decode($json);
 
         return $this->treeBuilder->restoreFromJson($data);
-    }
-
-    private function parseBinaryData(NodeInterface $tree, string $binaryData): void
-    {
-        $count = strlen($binaryData);
-        for ($cursor = 0; $cursor < $count; ++$cursor) {
-            $bite = $binaryData[$cursor];
-        }
     }
 }

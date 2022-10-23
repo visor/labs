@@ -4,13 +4,23 @@ declare(strict_types=1);
 
 class ByteBuffer
 {
-    private const BYTE = 8;
+    public const BYTE = 8;
 
     private string $buffer = '';
 
     public function append(string $binaryCode): void
     {
         $this->buffer .= $binaryCode;
+    }
+
+    public function align(int $zeros): void
+    {
+        $this->buffer = str_repeat('0', $zeros) . $this->buffer;
+    }
+
+    public function getLength(): int
+    {
+        return strLen($this->buffer);
     }
 
     public function write($file): void
@@ -22,11 +32,6 @@ class ByteBuffer
             fwrite($file, chr($byte));
         }
 
-        $tail = $count %8;
-        while ($tail > 0) {
-            --$tail;
-            fwrite($file, '0');
-        }
     }
 
     public function getByteAt(int $index): string

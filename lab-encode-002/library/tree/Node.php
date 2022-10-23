@@ -7,7 +7,7 @@ require_once __DIR__  . '/NodeInterface.php';
 class Node implements NodeInterface
 {
     public function __construct(
-        private readonly int $weight,
+        private ?int $weight,
         private ?NodeInterface $left = null,
         private ?NodeInterface $right = null,
         private ?string $code = null,
@@ -20,14 +20,14 @@ class Node implements NodeInterface
         return null;
     }
 
+    public function setWeight(?int $weight): void
+    {
+        $this->weight = $weight;
+    }
+
     public function getWeight(): int
     {
         return $this->weight;
-    }
-
-    public function setCode(?string $code): void
-    {
-        $this->code = $code;
     }
 
     public function getCode(): ?string

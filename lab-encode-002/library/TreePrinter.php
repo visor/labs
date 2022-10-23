@@ -41,7 +41,7 @@ class TreePrinter
                 $moreThan16Bit = true;
             }
 
-            echo sprintf("%s\t%30s\t%30d\n", $toPrint, $code, $stats->getLetterCount((string)$letter));
+            echo sprintf("%s\t%-30s\t%30d\n", $toPrint, $code, $stats->getLetterCount((string)$letter));
         }
     }
 }

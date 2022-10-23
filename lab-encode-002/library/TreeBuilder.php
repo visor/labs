@@ -27,7 +27,7 @@ class TreeBuilder
     public function restoreFromJson(\stdClass $json, ?NodeInterface $node = null): ?NodeInterface
     {
         if (null == $node) {
-            $node = new RootNode(0);
+            $node = new RootNode($json->weight ?? 0);
         }
 
         if (isset($json->left) && isset($json->right)) {
@@ -40,7 +40,7 @@ class TreeBuilder
     private function restoreNode(\stdClass $left, \stdClass $right, NodeInterface $parent): void
     {
         if (isset($left->letter)) {
-            $parent->setLeft($this->buildLetterNode(0, $left->code, $left->letter));
+            $parent->setLeft($this->restoreLetterNode($left->code, $left->letter));
         } else {
             $leftNode = $this->buildNode(0, $left->code);
 
@@ -49,7 +49,7 @@ class TreeBuilder
         }
 
         if (isset($right->letter)) {
-            $parent->setRight($this->buildLetterNode(0, $right->code, $right->letter));
+            $parent->setRight($this->restoreLetterNode($right->code, $right->letter));
         } else {
             $rightNode = $this->buildNode(0, $right->code);
 
@@ -100,5 +100,10 @@ class TreeBuilder
     private function buildLetterNode(int $weight, string $code, string $letter): LetterNode
     {
         return new LetterNode($weight, $code, $letter);
+    }
+
+    private function restoreLetterNode(string $code, $letter): LetterNode
+    {
+        return new LetterNode(0, $code, base64_decode($letter));
     }
 }

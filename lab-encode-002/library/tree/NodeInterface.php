@@ -6,6 +6,8 @@ interface NodeInterface extends JsonSerializable
 {
     public function getLetter(): ?string;
 
+    public function setWeight(?int $weight): void;
+
     public function getWeight(): int;
 
     public function getCode(): ?string;

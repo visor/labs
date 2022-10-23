@@ -48,7 +48,8 @@ class LetterNode extends Node
     {
         return [
             'code' => $this->getCode(),
-            'letter' => $this->getLetter(),
+            'letter' => base64_encode($this->getLetter()),
+//            'letter' => $this->getLetter(),
         ];
     }
 }

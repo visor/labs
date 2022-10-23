@@ -10,4 +10,13 @@ class RootNode extends Node
     {
         parent::__construct($weight);
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'left' => $this->getLeft(),
+            'right' => $this->getRight(),
+            'weight' => $this->getWeight(),
+        ];
+    }
 }
