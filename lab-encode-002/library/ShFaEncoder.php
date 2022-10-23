@@ -51,7 +51,7 @@ class ShFaEncoder
     {
         $resource = $this->createFile($fileName);
         $this->writeHeader($resource);
-        $this->writeBuffer($resource);
+        $this->buffer->write($resource);
         fclose($resource);
     }
 
@@ -62,11 +62,6 @@ class ShFaEncoder
 
     private function writeHeader($file): void
     {
-        fwrite($file, json_encode($this->tree) . PHP_EOL . PHP_EOL . PHP_EOL);
-    }
-
-    private function writeBuffer($file): void
-    {
-        $this->buffer->write($file);
+        fwrite($file, json_encode($this->tree) . PHP_EOL);
     }
 }

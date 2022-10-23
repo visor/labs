@@ -21,6 +21,12 @@ class ByteBuffer
             $byte = bindec($this->getByteAt($i));
             fwrite($file, chr($byte));
         }
+
+        $tail = $count %8;
+        while ($tail > 0) {
+            --$tail;
+            fwrite($file, '0');
+        }
     }
 
     public function getByteAt(int $index): string

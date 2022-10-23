@@ -24,6 +24,40 @@ class TreeBuilder
         return $node;
     }
 
+    public function restoreFromJson(\stdClass $json, ?NodeInterface $node = null): ?NodeInterface
+    {
+        if (null == $node) {
+            $node = new RootNode(0);
+        }
+
+        if (isset($json->left) && isset($json->right)) {
+            $this->restoreNode($json->left, $json->right, $node);
+        }
+
+        return $node;
+    }
+
+    private function restoreNode(\stdClass $left, \stdClass $right, NodeInterface $parent): void
+    {
+        if (isset($left->letter)) {
+            $parent->setLeft($this->buildLetterNode(0, $left->code, $left->letter));
+        } else {
+            $leftNode = $this->buildNode(0, $left->code);
+
+            $parent->setLeft($leftNode);
+            $this->restoreFromJson($left, $leftNode);
+        }
+
+        if (isset($right->letter)) {
+            $parent->setRight($this->buildLetterNode(0, $right->code, $right->letter));
+        } else {
+            $rightNode = $this->buildNode(0, $right->code);
+
+            $parent->setRight($rightNode);
+            $this->restoreFromJson($right, $rightNode);
+        }
+    }
+    
     private function buildPair(StatsPair $pair, NodeInterface $parent): void
     {
         $left = $pair->getFirst();

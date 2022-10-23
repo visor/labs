@@ -21,4 +21,6 @@ interface NodeInterface extends JsonSerializable
     public function isLeaf(): bool;
 
     public function searchByLetter(string $letter): ?NodeInterface;
+
+    public function searchByCode(string $code): ?NodeInterface;
 }

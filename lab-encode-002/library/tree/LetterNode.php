@@ -35,12 +35,20 @@ class LetterNode extends Node
         return null;
     }
 
+    public function searchByCode(string $code): ?NodeInterface
+    {
+        if ($this->getCode() === $code) {
+            return $this;
+        }
+
+        return null;
+    }
+
     public function jsonSerialize(): array
     {
-        $result = parent::jsonSerialize();
-        $result['code'] = $this->getCode();
-        $result['letter'] = $this->getLetter();
-
-        return $result;
+        return [
+            'code' => $this->getCode(),
+            'letter' => $this->getLetter(),
+        ];
     }
 }

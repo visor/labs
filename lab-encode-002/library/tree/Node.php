@@ -81,11 +81,33 @@ class Node implements NodeInterface
         return null;
     }
 
+    public function searchByCode(string $code): ?NodeInterface
+    {
+        if ($this->left instanceof NodeInterface) {
+            $result = $this->left->searchByCode($code);
+
+            if ($result instanceof NodeInterface) {
+                return $result;
+            }
+        }
+
+        if ($this->right instanceof NodeInterface) {
+            $result = $this->right->searchByCode($code);
+
+            if ($result instanceof NodeInterface) {
+                return $result;
+            }
+        }
+
+        return null;
+    }
+
     public function jsonSerialize(): array
     {
         return [
             'left' => $this->left,
             'right' => $this->right,
+            'code' => $this->code,
         ];
     }
 }
