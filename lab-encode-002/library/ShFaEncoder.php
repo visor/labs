@@ -63,7 +63,8 @@ class ShFaEncoder
 
     private function writeHeader($resource): void
     {
-        $zeros = $this->buffer->getLength() % ByteBuffer::BYTE;
+        $zeros = ByteBuffer::BYTE + ($this->buffer->getLength() % ByteBuffer::BYTE);
+        $this->buffer->align($zeros);
         $this->tree->setWeight($zeros);
 
         fwrite($resource, json_encode($this->tree) . PHP_EOL);
@@ -71,7 +72,6 @@ class ShFaEncoder
 
     private function writeBody($resource): void
     {
-        $this->buffer->align($this->tree->getWeight());
         $this->buffer->write($resource);
     }
 }

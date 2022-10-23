@@ -25,7 +25,7 @@ class BinaryDataParser
         $this->buffer = '';
         $this->cursor = $this->tree->getWeight();
 
-        while ($this->cursor < $this->length) {
+        while ($this->cursor <= $this->length) {
             $this->parseBit($this->tree);
             ++$this->cursor;
         }
@@ -35,17 +35,11 @@ class BinaryDataParser
 
     private function parseBit(NodeInterface $node, ?string $code = null): void
     {
-        if ($node->getCode() === $code) {
-            if ($node->isLeaf()) {
-                $this->buffer .= $node->getLetter();
-            } else {
-                $this->parseNextBit($node, $code);
-            }
+        if ($node->isLeaf()) {
+            $this->buffer .= $node->getLetter();
         } else {
             $this->parseNextBit($node, $code);
         }
-
-//        throw new \Exception('Unknown code: ' . $code);
     }
 
     private function parseNextBit(NodeInterface $node, ?string $code): void
@@ -56,6 +50,7 @@ class BinaryDataParser
         if ($this->cursor >= $this->length) {
             return;
         }
+
         $newCode = $code . $this->binaryData[$this->cursor];
         if ($node->getLeft()->getCode() === $newCode) {
             $this->parseBit($node->getLeft(), $newCode);
