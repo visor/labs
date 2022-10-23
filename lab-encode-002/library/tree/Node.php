@@ -80,4 +80,12 @@ class Node implements NodeInterface
 
         return null;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'left' => $this->left,
+            'right' => $this->right,
+        ];
+    }
 }

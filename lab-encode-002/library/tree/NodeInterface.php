@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-interface NodeInterface
+interface NodeInterface extends JsonSerializable
 {
     public function getLetter(): ?string;
 

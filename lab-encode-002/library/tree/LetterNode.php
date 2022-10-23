@@ -34,4 +34,13 @@ class LetterNode extends Node
 
         return null;
     }
+
+    public function jsonSerialize(): array
+    {
+        $result = parent::jsonSerialize();
+        $result['code'] = $this->getCode();
+        $result['letter'] = $this->getLetter();
+
+        return $result;
+    }
 }
