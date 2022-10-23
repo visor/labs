@@ -13,9 +13,16 @@ class ByteBuffer
         $this->buffer .= $binaryCode;
     }
 
-    public function align(int $zeros): void
+    public function align(): int
     {
-        $this->buffer = str_repeat('0', $zeros) . $this->buffer;
+        $result = 0;
+
+        while (0 !== $this->getLength() % self::BYTE) {
+            ++$result;
+            $this->buffer = '0' . $this->buffer;
+        }
+
+        return $result;
     }
 
     public function getLength(): int
@@ -31,7 +38,6 @@ class ByteBuffer
             $byte = bindec($this->getByteAt($i));
             fwrite($file, chr($byte));
         }
-
     }
 
     public function getByteAt(int $index): string

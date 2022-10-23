@@ -30,6 +30,10 @@ class BinaryDataParser
             ++$this->cursor;
         }
 
+        if ($this->tree instanceof RootNode) {
+            return substr($this->buffer, 0, $this->tree->getSize());
+        }
+
         return $this->buffer;
     }
 

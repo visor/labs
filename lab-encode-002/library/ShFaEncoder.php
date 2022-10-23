@@ -10,6 +10,8 @@ require_once __DIR__  . '/CodeSearcher.php';
 
 class ShFaEncoder
 {
+    private ?int $size;
+
     private readonly NodeInterface $tree;
 
     private readonly CodeSearcher $codeSearcher;
@@ -28,6 +30,7 @@ class ShFaEncoder
     public function encode(string $sourceFileName, string $targetFileName): void
     {
         $fin = fopen($sourceFileName, 'r');
+        $this->size = filesize($sourceFileName);
 
         while (!feof($fin)) {
             $line = fgets($fin);
@@ -63,9 +66,12 @@ class ShFaEncoder
 
     private function writeHeader($resource): void
     {
-        $zeros = ByteBuffer::BYTE + ($this->buffer->getLength() % ByteBuffer::BYTE);
-        $this->buffer->align($zeros);
-        $this->tree->setWeight($zeros);
+        $align = $this->buffer->align();
+        $this->tree->setWeight($align);
+
+        if ($this->tree instanceof RootNode) {
+            $this->tree->setSize($this->size);
+        }
 
         fwrite($resource, json_encode($this->tree) . PHP_EOL);
     }

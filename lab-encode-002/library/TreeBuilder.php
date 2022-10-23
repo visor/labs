@@ -28,6 +28,7 @@ class TreeBuilder
     {
         if (null == $node) {
             $node = new RootNode($json->weight ?? 0);
+            $node->setSize($json->size ?? -1);
         }
 
         if (isset($json->left) && isset($json->right)) {
