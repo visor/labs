@@ -24,9 +24,4 @@ class CodeSearcher
 
         return $this->codes[$letter];
     }
-
-    public function getSubtree(string $code): ?NodeInterface
-    {
-
-    }
 }

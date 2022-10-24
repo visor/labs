@@ -8,14 +8,11 @@ require_once __DIR__  . '/library/ShFaEncoder.php';
 $inputFile = __DIR__ . '/../lab-encode-texts/' . $argv[1];
 $outputFile = __DIR__ . '/encoded/' . $argv[2];
 
-$stats = (new Counter)->countFile($inputFile);
-$tree = (new TreeBuilder())->build($stats);
+$stats = (new Counter)->countFile($inputFile); // собираем статистику
+$tree = (new TreeBuilder())->build($stats); // строим дерево по статистике
 
-echo $stats->getTotal(), PHP_EOL;
+(new TreePrinter($tree))->print($stats); // выводим дерево со статистикой
 
-(new TreePrinter($tree))->print($stats);
-
-$encoder = new ShFaEncoder($stats);
-$encoder->encode($inputFile, $outputFile);
+(new ShFaEncoder($stats))->encode($inputFile, $outputFile); // кодируем
 
 echo 'Done';

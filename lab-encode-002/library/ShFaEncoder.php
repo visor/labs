@@ -40,7 +40,7 @@ class ShFaEncoder
 
             foreach (Helper::getUtfLetters($line) as $letter) {
                 $this->buffer->append(
-                    $this->codeSearcher->getCode($letter)
+                    $this->codeSearcher->getCode($letter) //поиск кода по дереву
                 );
             }
         }
