@@ -8,21 +8,18 @@ require_once __DIR__  . '/Stats.php';
 require_once __DIR__  . '/TreeBuilder.php';
 require_once __DIR__  . '/CodeSearcher.php';
 
-class ShFaEncoder
+class TreeEncoder
 {
     private ?int $size;
-
-    private readonly NodeInterface $tree;
 
     private readonly CodeSearcher $codeSearcher;
 
     private readonly ByteBuffer $buffer;
 
     public function __construct(
-        private readonly Stats $stats,
+        private readonly NodeInterface $tree,
     )
     {
-        $this->tree = (new TreeBuilder())->build($this->stats);
         $this->codeSearcher = new CodeSearcher($this->tree);
         $this->buffer = new ByteBuffer();
     }

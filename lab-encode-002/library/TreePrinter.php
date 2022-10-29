@@ -37,7 +37,7 @@ class TreePrinter
             }
 
             if (17 === strLen($code) && false === $moreThan16Bit) {
-                echo '-------------------------', PHP_EOL;
+                echo '=========================', PHP_EOL;
                 $moreThan16Bit = true;
             }
 

@@ -56,9 +56,9 @@ class BinaryDataParser
         }
 
         $newCode = $code . $this->binaryData[$this->cursor];
-        if ($node->getLeft()->getCode() === $newCode) {
+        if ($newCode === $node->getLeft()->getFullCode()) {
             $this->parseBit($node->getLeft(), $newCode);
-        } elseif ($node->getRight()->getCode() === $newCode) {
+        } elseif ($newCode === $node->getRight()->getFullCode()) {
             $this->parseBit($node->getRight(), $newCode);
         }
     }

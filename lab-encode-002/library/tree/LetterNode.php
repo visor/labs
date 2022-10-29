@@ -37,7 +37,7 @@ class LetterNode extends Node
 
     public function searchByCode(string $code): ?NodeInterface
     {
-        if ($this->getCode() === $code) {
+        if ($this->getFullCode() === $code) {
             return $this;
         }
 

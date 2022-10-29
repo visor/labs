@@ -38,7 +38,7 @@ class TreeBuilder
         return $node;
     }
 
-    private function restoreNode(\stdClass $left, \stdClass $right, NodeInterface $parent): void
+    protected function restoreNode(\stdClass $left, \stdClass $right, NodeInterface $parent): void
     {
         if (isset($left->letter)) {
             $parent->setLeft($this->restoreLetterNode($left->code, $left->letter));
@@ -58,14 +58,15 @@ class TreeBuilder
             $this->restoreFromJson($right, $rightNode);
         }
     }
-    
-    private function buildPair(StatsPair $pair, NodeInterface $parent): void
+
+    protected function buildPair(StatsPair $pair, NodeInterface $parent): void
     {
         $left = $pair->getFirst();
         $right = $pair->getSecond();
 
-        $leftCode = $parent->getCode() . '0';
-        $rightCode = $parent->getCode() . '1';
+        $leftCode = '0';
+        $rightCode = '1';
+
         if ($left->isLeaf()) {
             $parent->setLeft($this->buildLetterNode(
                 $left->getTotal(),
@@ -93,17 +94,17 @@ class TreeBuilder
         }
     }
 
-    private function buildNode(int $weight, string $code): Node
+    protected function buildNode(int $weight, string $code): Node
     {
         return new Node($weight, null, null, $code);
     }
 
-    private function buildLetterNode(int $weight, string $code, string $letter): LetterNode
+    protected function buildLetterNode(int $weight, string $code, string $letter): LetterNode
     {
         return new LetterNode($weight, $code, $letter);
     }
 
-    private function restoreLetterNode(string $code, $letter): LetterNode
+    protected function restoreLetterNode(string $code, $letter): LetterNode
     {
         return new LetterNode(0, $code, base64_decode($letter));
     }

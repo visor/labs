@@ -11,6 +11,7 @@ class ShFaDecoder
 {
 
     private readonly TreeBuilder $treeBuilder;
+
     public function __construct()
     {
         $this->treeBuilder = new TreeBuilder();

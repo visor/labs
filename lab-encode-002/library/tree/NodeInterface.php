@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 interface NodeInterface extends JsonSerializable
 {
+    public function getParent(): ?NodeInterface;
+
+    public function setParent(?NodeInterface $node = null): void;
+
     public function getLetter(): ?string;
 
     public function setWeight(?int $weight): void;
@@ -11,6 +15,10 @@ interface NodeInterface extends JsonSerializable
     public function getWeight(): int;
 
     public function getCode(): ?string;
+
+    public function getFullCode(): ?string;
+
+    public function setCode(?string $code): void;
 
     public function setLeft(?NodeInterface $left): void;
 

@@ -6,6 +6,10 @@ require_once __DIR__  . '/NodeInterface.php';
 
 class Node implements NodeInterface
 {
+    private ?NodeInterface $parent = null;
+
+    private ?string $fullCode = null;
+
     public function __construct(
         private ?int $weight,
         private ?NodeInterface $left = null,
@@ -13,6 +17,18 @@ class Node implements NodeInterface
         private ?string $code = null,
     )
     {
+        $this->left?->setParent($this);
+        $this->right?->setParent($this);
+    }
+
+    public function getParent(): ?NodeInterface
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?NodeInterface $node = null): void
+    {
+        $this->parent = $node;
     }
 
     public function getLetter(): ?string
@@ -35,9 +51,24 @@ class Node implements NodeInterface
         return $this->code;
     }
 
+    public function getFullCode(): ?string
+    {
+        if (null === $this->fullCode) {
+            $this->fullCode = $this->getParent()?->getFullCode() . $this->code;
+        }
+
+        return $this->fullCode;
+    }
+
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
+    }
+
     public function setLeft(?NodeInterface $left): void
     {
         $this->left = $left;
+        $left->setParent($this);
     }
 
     public function getLeft(): ?NodeInterface
@@ -48,6 +79,7 @@ class Node implements NodeInterface
     public function setRight(?NodeInterface $right): void
     {
         $this->right = $right;
+        $right->setParent($this);
     }
 
     public function getRight(): ?NodeInterface

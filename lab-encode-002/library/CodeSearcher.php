@@ -16,7 +16,7 @@ class CodeSearcher
         if (false === array_key_exists($letter, $this->codes)) {
             $code = $this->tree->searchByLetter($letter);
             if ($code instanceof NodeInterface) {
-                return $this->codes[$letter] = $code->getCode();
+                return $this->codes[$letter] = $code->getFullCode();
             }
 
             throw new Exception('Letter not found: [' . $letter . ']');
