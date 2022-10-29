@@ -78,6 +78,7 @@ class HaffmanPool
             }
 
             array_splice($this->nodes, $index, 0, [$pair]); // вставляем новый узел
+//            echo $pair, str_repeat('-', 40), PHP_EOL;
             return;
         }
 
@@ -85,6 +86,7 @@ class HaffmanPool
         $root->setLeft($left);
         $root->setRight($right);
         $this->pushNode($root);
+//        echo $root, str_repeat('=', 40), PHP_EOL;
     }
 
     protected function createLetterNode(int $weight, string $letter): LetterNode

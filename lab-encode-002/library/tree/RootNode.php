@@ -37,11 +37,4 @@ class RootNode extends Node
             's' => $this->size,
         ];
     }
-
-    public function __toString(): string
-    {
-        return
-            sprintf("%-4s%-24s\t%s\n", '', '', $this->getWeightLine())
-            . $this->getLeft()->__toString() . $this->getRight()->__toString();
-    }
 }

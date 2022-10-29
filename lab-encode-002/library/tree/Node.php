@@ -150,16 +150,34 @@ class Node implements NodeInterface
 
     public function __toString(): string
     {
-        return
-            sprintf("%-4s%-24s\t%s\n", '', $this->getFullCode(), $this->getWeightLine())
+        return ''
+            . sprintf($this->getStringTemplate(), ' ', ' ', $this->getWeightLine())
             . $this->left->__toString() . $this->right->__toString();
     }
 
     protected function getWeightLine(): string
     {
-        $result = str_repeat('—', $this->getLevel());
+        $result = str_repeat('-', $this->getLevel());
         $result .= 0 === $this->getWeight()  ? '*' : $this->getWeight();
 
         return $result;
     }
+
+    protected function getStringTemplate(): string
+    {
+        return "%s\t%-24s %s\n";
+    }
+
+    protected function getLetterWidth(): int
+    {
+        if (null === $this->getLetter()) {
+            return 4;
+        }
+        if (1 == strlen($this->getLetter())) {
+            return 4;
+        }
+
+        return 3;
+    }
 }
+
