@@ -30,7 +30,11 @@ interface NodeInterface extends JsonSerializable
 
     public function isLeaf(): bool;
 
+    public function getLevel(): int;
+
     public function searchByLetter(string $letter): ?NodeInterface;
 
     public function searchByCode(string $code): ?NodeInterface;
+
+    public function __toString(): string;
 }

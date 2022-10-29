@@ -23,6 +23,11 @@ class RootNode extends Node
         return $this->size;
     }
 
+    public function getLevel(): int
+    {
+        return 0;
+    }
+
     public function jsonSerialize(): array
     {
         return [
@@ -31,5 +36,12 @@ class RootNode extends Node
             'w' => $this->getWeight(),
             's' => $this->size,
         ];
+    }
+
+    public function __toString(): string
+    {
+        return
+            sprintf("%-4s%-24s\t%s\n", '', '', $this->getWeightLine())
+            . $this->getLeft()->__toString() . $this->getRight()->__toString();
     }
 }

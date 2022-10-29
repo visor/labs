@@ -11,8 +11,7 @@ $outputFile = __DIR__ . '/encoded/' . $argv[2];
 $stats = (new Counter)->countFile($inputFile);
 $tree = (new HaffmanTreeBuilder())->build($stats);
 
-echo $stats->getTotal(), PHP_EOL;
-(new TreePrinter($tree))->print($stats);
+echo $tree;
 
 $encoder = new TreeEncoder($tree);
 $encoder->encode($inputFile, $outputFile);

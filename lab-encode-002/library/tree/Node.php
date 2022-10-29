@@ -92,6 +92,11 @@ class Node implements NodeInterface
         return false;
     }
 
+    public function getLevel(): int
+    {
+        return $this->getParent()?->getLevel() + 1;
+    }
+
     public function searchByLetter(string $letter): ?NodeInterface
     {
         if ($this->left instanceof NodeInterface) {
@@ -141,5 +146,20 @@ class Node implements NodeInterface
             'r' => $this->right,
             'c' => $this->code,
         ];
+    }
+
+    public function __toString(): string
+    {
+        return
+            sprintf("%-4s%-24s\t%s\n", '', $this->getFullCode(), $this->getWeightLine())
+            . $this->left->__toString() . $this->right->__toString();
+    }
+
+    protected function getWeightLine(): string
+    {
+        $result = str_repeat('—', $this->getLevel());
+        $result .= 0 === $this->getWeight()  ? '*' : $this->getWeight();
+
+        return $result;
     }
 }

@@ -2,7 +2,6 @@
 
 require_once __DIR__  . '/library/Counter.php';
 require_once __DIR__  . '/library/TreeBuilder.php';
-require_once __DIR__  . '/library/TreePrinter.php';
 require_once __DIR__  . '/library/ShFaDecoder.php';
 
 $inputFile = __DIR__ . '/encoded/' . $argv[1];

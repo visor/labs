@@ -22,6 +22,7 @@ class ShFaDecoder
         $fin = fopen($sourceFileName, 'r');
 
         $tree = $this->readTree($fin);
+        echo $tree;
 
         $binaryData = '';
         while (false === feof($fin)) {

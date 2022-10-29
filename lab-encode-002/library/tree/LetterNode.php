@@ -51,4 +51,22 @@ class LetterNode extends Node
             '_' => base64_encode($this->getLetter()),
         ];
     }
+
+    public function __toString(): string
+    {
+        $toPrint = $this->letter;
+        if ("\t" === $toPrint) {
+            $toPrint = '\t';
+        }
+        if ("\r" === $toPrint) {
+            $toPrint = '\r';
+        }
+        if ("\n" === $toPrint) {
+            $toPrint = '\n';
+        }
+
+        $code = $this->getFullCode();
+
+        return sprintf("%-4s%-24s\t%s (%d)\n", $toPrint, $code, $this->getWeightLine(), $this->getLevel());
+    }
 }
