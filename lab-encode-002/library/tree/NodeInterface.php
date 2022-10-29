@@ -14,11 +14,11 @@ interface NodeInterface extends JsonSerializable
 
     public function getWeight(): int;
 
-    public function getCode(): ?string;
+    public function getCode(): ?int;
 
     public function getFullCode(): ?string;
 
-    public function setCode(?string $code): void;
+    public function setCode(?int $code): void;
 
     public function setLeft(?NodeInterface $left): void;
 

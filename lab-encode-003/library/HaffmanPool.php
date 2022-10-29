@@ -57,8 +57,8 @@ class HaffmanPool
             $right = $temp;
         }
 
-        $left->setCode('0');
-        $right->setCode('1');
+        $left->setCode(0);
+        $right->setCode(1);
 
         if ($this->count() > 0) {
             $pair = new Node(
@@ -84,6 +84,6 @@ class HaffmanPool
 
     protected function createLetterNode(int $weight, string $letter): LetterNode
     {
-        return new LetterNode($weight, '', $letter);
+        return new LetterNode($weight, null, $letter);
     }
 }

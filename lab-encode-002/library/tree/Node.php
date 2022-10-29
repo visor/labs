@@ -14,7 +14,7 @@ class Node implements NodeInterface
         private ?int $weight,
         private ?NodeInterface $left = null,
         private ?NodeInterface $right = null,
-        private ?string $code = null,
+        private ?int $code = null,
     )
     {
         $this->left?->setParent($this);
@@ -46,7 +46,7 @@ class Node implements NodeInterface
         return $this->weight;
     }
 
-    public function getCode(): ?string
+    public function getCode(): ?int
     {
         return $this->code;
     }
@@ -60,7 +60,7 @@ class Node implements NodeInterface
         return $this->fullCode;
     }
 
-    public function setCode(?string $code): void
+    public function setCode(?int $code): void
     {
         $this->code = $code;
     }
@@ -137,9 +137,9 @@ class Node implements NodeInterface
     public function jsonSerialize(): array
     {
         return [
-            'left' => $this->left,
-            'right' => $this->right,
-            'code' => $this->code,
+            'l' => $this->left,
+            'r' => $this->right,
+            'c' => $this->code,
         ];
     }
 }

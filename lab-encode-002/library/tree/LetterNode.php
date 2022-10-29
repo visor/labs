@@ -8,7 +8,7 @@ class LetterNode extends Node
 {
     public function __construct(
         int $weight,
-        string $code,
+        ?int $code,
 
         private readonly string $letter,
     )
@@ -47,9 +47,8 @@ class LetterNode extends Node
     public function jsonSerialize(): array
     {
         return [
-            'code' => $this->getCode(),
-            'letter' => base64_encode($this->getLetter()),
-//            'letter' => $this->getLetter(),
+            'c' => $this->getCode(),
+            '_' => base64_encode($this->getLetter()),
         ];
     }
 }

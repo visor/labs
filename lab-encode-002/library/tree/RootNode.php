@@ -26,10 +26,10 @@ class RootNode extends Node
     public function jsonSerialize(): array
     {
         return [
-            'left' => $this->getLeft(),
-            'right' => $this->getRight(),
-            'weight' => $this->getWeight(),
-            'size' => $this->size,
+            'l' => $this->getLeft(),
+            'r' => $this->getRight(),
+            'w' => $this->getWeight(),
+            's' => $this->size,
         ];
     }
 }

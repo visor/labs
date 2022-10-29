@@ -27,12 +27,12 @@ class TreeBuilder
     public function restoreFromJson(\stdClass $json, ?NodeInterface $node = null): ?NodeInterface
     {
         if (null == $node) {
-            $node = new RootNode($json->weight ?? 0);
-            $node->setSize($json->size ?? -1);
+            $node = new RootNode($json->w ?? 0);
+            $node->setSize($json->s ?? -1);
         }
 
-        if (isset($json->left) && isset($json->right)) {
-            $this->restoreNode($json->left, $json->right, $node);
+        if (isset($json->l) && isset($json->r)) {
+            $this->restoreNode($json->l, $json->r, $node);
         }
 
         return $node;
@@ -40,19 +40,19 @@ class TreeBuilder
 
     protected function restoreNode(\stdClass $left, \stdClass $right, NodeInterface $parent): void
     {
-        if (isset($left->letter)) {
-            $parent->setLeft($this->restoreLetterNode($left->code, $left->letter));
+        if (isset($left->_)) {
+            $parent->setLeft($this->restoreLetterNode($left->c, $left->_));
         } else {
-            $leftNode = $this->buildNode(0, $left->code);
+            $leftNode = $this->buildNode(0, $left->c);
 
             $parent->setLeft($leftNode);
             $this->restoreFromJson($left, $leftNode);
         }
 
-        if (isset($right->letter)) {
-            $parent->setRight($this->restoreLetterNode($right->code, $right->letter));
+        if (isset($right->_)) {
+            $parent->setRight($this->restoreLetterNode($right->c, $right->_));
         } else {
-            $rightNode = $this->buildNode(0, $right->code);
+            $rightNode = $this->buildNode(0, $right->c);
 
             $parent->setRight($rightNode);
             $this->restoreFromJson($right, $rightNode);
@@ -64,8 +64,8 @@ class TreeBuilder
         $left = $pair->getFirst();
         $right = $pair->getSecond();
 
-        $leftCode = '0';
-        $rightCode = '1';
+        $leftCode = 0;
+        $rightCode = 1;
 
         if ($left->isLeaf()) {
             $parent->setLeft($this->buildLetterNode(
@@ -94,17 +94,17 @@ class TreeBuilder
         }
     }
 
-    protected function buildNode(int $weight, string $code): Node
+    protected function buildNode(int $weight, int $code): Node
     {
         return new Node($weight, null, null, $code);
     }
 
-    protected function buildLetterNode(int $weight, string $code, string $letter): LetterNode
+    protected function buildLetterNode(int $weight, int $code, string $letter): LetterNode
     {
         return new LetterNode($weight, $code, $letter);
     }
 
-    protected function restoreLetterNode(string $code, $letter): LetterNode
+    protected function restoreLetterNode(int $code, $letter): LetterNode
     {
         return new LetterNode(0, $code, base64_decode($letter));
     }
