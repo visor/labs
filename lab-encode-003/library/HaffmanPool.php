@@ -11,6 +11,7 @@ class HaffmanPool
 
     public static function createFromStats(Stats $stats): HaffmanPool
     {
+        $stats->sortByCount(); // Статистика отсортирована по возрастанию (в начале самые популярные).
         $result = new self();
 
         foreach ($stats->getLetters() as $letter) {
@@ -40,18 +41,21 @@ class HaffmanPool
         $this->nodes[] = $node;
     }
 
+    /**
+     * Метод построения дерева по алгоритму Хаффмана
+     */
     public function joinNodePair(): void
     {
-        if (0 === $this->count()) {
+        if (0 === $this->count()) { // Если дерево оказалось пустым, что-то пошло не так.
             throw new \RuntimeException('Error');
         }
-        if (1 === $this->count()) {
+        if (1 === $this->count()) { // Если узел только один — всё сделали.
             return;
         }
 
-        $left = array_pop($this->nodes);
-        $right = array_pop($this->nodes);
-        if ($left->getWeight() < $right->getWeight()) {
+        $left = array_pop($this->nodes);  // Выбираем два узла
+        $right = array_pop($this->nodes); // с низкой статистикой
+        if ($left->getWeight() < $right->getWeight()) { // Слева будут самые "тяжёлые"
             $temp = $left;
             $left = $right;
             $right = $temp;
@@ -60,23 +64,24 @@ class HaffmanPool
         $left->setCode(0);
         $right->setCode(1);
 
-        if ($this->count() > 0) {
+        if ($this->count() > 0) { // Если ещё есть узлы, то строим ветку
             $pair = new Node(
-                $left->getWeight() + $right->getWeight(),
+                $left->getWeight() + $right->getWeight(), // суммарный вес пары
                 $left,
                 $right,
             );
 
+            // ищем куда вставить новый узел
             $index = $this->count() - 1;
             while ($index > 0 && $pair->getWeight() > $this->nodes[$index]->getWeight()) {
                 --$index;
             }
 
-            array_splice($this->nodes, $index, 0, [$pair]);
+            array_splice($this->nodes, $index, 0, [$pair]); // вставляем новый узел
             return;
         }
 
-        $root = new RootNode($left->getWeight() + $right->getWeight());
+        $root = new RootNode($left->getWeight() + $right->getWeight()); // это последний узел — корень дерева
         $root->setLeft($left);
         $root->setRight($right);
         $this->pushNode($root);

@@ -14,7 +14,6 @@ class HaffmanTreeBuilder extends TreeBuilder
 {
     public function build(Stats $stats, ?NodeInterface $node = null): NodeInterface
     {
-        $stats->sortByCount();
         $pool = HaffmanPool::createFromStats($stats);
 
         while ($pool->count() > 1) {
