@@ -67,6 +67,17 @@ class LetterNode extends Node
 
         $code = $this->getFullCode();
 
-        return sprintf($this->getStringTemplate(), $toPrint, $code, $this->getWeightLine(), $this->getLevel());
+        return sprintf(
+            $this->getStringTemplate(),
+            $toPrint,
+            $code,
+            $this->getWeightLine(),
+            $this->getLevel()
+        );
+    }
+
+    protected function getStringTemplate(): string
+    {
+        return "%s\t%-24s %s (%d)\n";
     }
 }

@@ -167,17 +167,5 @@ class Node implements NodeInterface
     {
         return "%s\t%-24s %s\n";
     }
-
-    protected function getLetterWidth(): int
-    {
-        if (null === $this->getLetter()) {
-            return 4;
-        }
-        if (1 == strlen($this->getLetter())) {
-            return 4;
-        }
-
-        return 3;
-    }
 }
 
