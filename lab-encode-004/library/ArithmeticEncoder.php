@@ -16,13 +16,13 @@ class ArithmeticEncoder
     {
         $letters = $this->getLettersFromFile($sourceFileName);
 
-        $result = null;
         $left = '0';
         $right = '1';
         foreach ($letters as $letter) {
+            $letterSegment = $this->segments->get($letter);
             $range = bcsub($right, $left);
-            $segmentLeft = bcmul($range, $this->segments->get($letter)->getLeft());
-            $segmentRight = bcmul($range, $this->segments->get($letter)->getRight());
+            $segmentLeft = bcmul($range, $letterSegment->getLeft());
+            $segmentRight = bcmul($range, $letterSegment->getRight());
 
             $newLeft = bcadd($left, $segmentLeft);
             $newRight = bcadd($left, $segmentRight);
@@ -31,15 +31,7 @@ class ArithmeticEncoder
             $right = $newRight;
         }
 
-        return $left;
-//
-//        return [
-//            'encoded' => $result,
-//            'length' => $this->segments->getTotal(),
-//        ];
-//
-//        echo $result, PHP_EOL, strlen($result), PHP_EOL;
-//        $this->writeToFile($targetFileName);
+        return bcdiv(bcadd($right, $left), '2');
     }
 
     protected function getLettersFromFile(string $sourceFileName): array

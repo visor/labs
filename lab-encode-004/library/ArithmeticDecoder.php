@@ -34,6 +34,7 @@ class ArithmeticDecoder
                 }
             }
         }
+        echo PHP_EOL;
 
         return $result;
     }
