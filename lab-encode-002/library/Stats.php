@@ -97,6 +97,16 @@ class Stats
         return 1 === $this->countLetters();
     }
 
+    public function getNormalized(): array
+    {
+        $result = [];
+        foreach ($this->letters as $letter => $count) {
+            $result[$letter] = bcdiv((string)$count, (string)$this->total);
+        }
+
+        return $result;
+    }
+
     public function __toString(): string
     {
         $result = '';

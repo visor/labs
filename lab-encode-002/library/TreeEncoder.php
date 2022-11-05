@@ -14,7 +14,7 @@ class TreeEncoder
 
     private readonly CodeSearcher $codeSearcher;
 
-    private readonly ByteBuffer $buffer;
+    protected ByteBuffer $buffer;
 
     public function __construct(
         private readonly NodeInterface $tree,
@@ -56,12 +56,12 @@ class TreeEncoder
         fclose($resource);
     }
 
-    private function createFile(string $fileName)
+    protected function createFile(string $fileName)
     {
         return fopen($fileName, 'w');
     }
 
-    private function writeHeader($resource): void
+    protected function writeHeader($resource): void
     {
         $align = $this->buffer->align();
         $this->tree->setWeight($align);
@@ -73,7 +73,7 @@ class TreeEncoder
         fwrite($resource, json_encode($this->tree) . PHP_EOL);
     }
 
-    private function writeBody($resource): void
+    protected function writeBody($resource): void
     {
         $this->buffer->write($resource);
     }
