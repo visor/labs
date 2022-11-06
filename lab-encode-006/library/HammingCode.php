@@ -103,11 +103,13 @@ class HammingCode
     {
         $result = BitArray::createEmpty($this->messageLength);
 
-        for ($i = $index - 1; $i < $this->messageLength; $i += $index) {
+        $i = $index - 1;
+        while ($i < $this->messageLength) {
             for ($j = 0; $j < $index && $i < $this->messageLength; ++$j) {
                 $result->setBit($i, $source->getBit($i));
                 ++$i;
             }
+            $i += $index;
         }
 
         return $result;
