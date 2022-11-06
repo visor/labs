@@ -30,7 +30,7 @@ class BitArray
         return new self($bits);
     }
 
-    public function setBit(int $index, ?bool $value = null): void
+    public function setBit(int $index, ?bool $value): void
     {
         $this->bits[$index] = $value;
     }

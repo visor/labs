@@ -17,7 +17,7 @@ class HammingCode
     public function encode(BitArray $data): BitArray
     {
         if ($data->countBits() != $this->dataLength) {
-            throw new RuntimeException('Incorrect data length');
+            throw new InvalidArgumentException('Incorrect data length');
         }
 
         $result = $this->fillResultFromData($data);
@@ -33,7 +33,7 @@ class HammingCode
     public function decode(BitArray $message): BitArray
     {
         if ($message->countBits() != $this->messageLength) {
-            throw new RuntimeException('Incorrect message length');
+            throw new InvalidArgumentException('Incorrect message length');
         }
 
         $copy = $message->copy();
