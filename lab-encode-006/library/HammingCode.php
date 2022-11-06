@@ -46,7 +46,7 @@ class HammingCode
         return $this->fillResultFromMessage($correct);
     }
 
-    protected function fillResultFromData(BitArray $data, bool $reverse = false): BitArray
+    protected function fillResultFromData(BitArray $data): BitArray
     {
         $result = BitArray::createEmpty($this->messageLength);
 
