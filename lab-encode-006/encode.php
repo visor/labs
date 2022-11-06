@@ -23,5 +23,3 @@ for ($i = 0; $i < $messageLength; ++$i) {
     echo '==', $result, PHP_EOL;
     echo '--', $test, '  ', $hamming->decode($test), PHP_EOL, PHP_EOL;
 }
-
-
