@@ -30,7 +30,13 @@ class RepeatEncoder
 
         for ($i = 0; $i < $length; ++$i) {
             $char = $word[$i];
-            $result .= rand(0, 1) > .25 ? $char : '0';
+            $test = rand(0, 1) > .25;
+
+            if ('1' === $char) {
+                $result .= $test ? $char : '0';
+            } else {
+                $result .= $test ? $char : '1';
+            }
         }
 
         return $result;
